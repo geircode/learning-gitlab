@@ -1,0 +1,16 @@
+version: '3.5'
+
+services:
+  learning_gitlab-filecontainer:
+    image: geircode/learning_gitlab-filecontainer:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: learning_gitlab-filecontainer-1
+    networks:
+      - learning_gitlab-filecontainer-network      
+
+networks:
+  learning_gitlab-filecontainer-network:
+    name: learning_gitlab-filecontainer-network    
+    

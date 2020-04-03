@@ -1,0 +1,1 @@
+docker exec -it learning_gitlab-1 /bin/bash

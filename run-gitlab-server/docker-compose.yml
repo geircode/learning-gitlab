@@ -1,0 +1,17 @@
+version: '3.7'
+
+services:
+  learning_gitlab:
+    image: geircode/learning_gitlab:latest
+    build:
+      context: .
+      dockerfile: Dockerfile    
+    container_name: learning_gitlab-1
+    # volumes:
+    #   - ".:/app"       
+    #   - "/var/run/docker.sock:/var/run/docker.sock"
+    networks:
+      - learning_gitlab_network
+networks:
+  learning_gitlab_network:
+          
