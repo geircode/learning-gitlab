@@ -1,1 +1,0 @@
-docker logs -f gitlab_runner1-1

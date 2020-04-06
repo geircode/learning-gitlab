@@ -1,14 +1,15 @@
-FROM python:3.6 as filedownloader
+FROM library/alpine as filecontainer
 
-# RUN apt-get update
-
+RUN apk add --update ca-certificates \
+ && apk add --update -t deps curl
+ 
 WORKDIR /files
-# Makes it possible to run Docker Commands from inside the Container to the Docker Host
-RUN curl -fsSLO https://download.docker.com/linux/static/stable/x86_64/docker-19.03.2.tgz && tar --strip-components=1 -xvzf docker-19.03.2.tgz -C /usr/local/bin
 
-FROM alpine:latest as filecontainer
-WORKDIR /files
-COPY --from=filedownloader /files .
+ARG docker_latest_version_file_arg="docker-19.03.2.tgz"
+ENV DOCKER_LATEST_VERSION_FILE=${docker_latest_version_file_arg}
+
+RUN echo "Download => https://download.docker.com/linux/static/stable/x86_64/${DOCKER_LATEST_VERSION_FILE}"
+
+RUN curl -fsSLO https://download.docker.com/linux/static/stable/x86_64/${DOCKER_LATEST_VERSION_FILE}
 
 ENTRYPOINT tail -f /dev/null
-

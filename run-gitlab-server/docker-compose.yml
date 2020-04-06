@@ -1,6 +1,42 @@
 version: '3.7'
 
 services:
+  web:
+    image: 'gitlab/gitlab-ce:latest'
+    restart: always
+    hostname: 'gitlab.example.com'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://gitlab.example.com:8929'
+        gitlab_rails['gitlab_shell_ssh_port'] = 2224
+    ports:
+      - '8929:8929'
+      - '2224:22'
+    # volumes:
+    #   - '/srv/gitlab/config:/etc/gitlab'
+    #   - '/srv/gitlab/logs:/var/log/gitlab'
+    #   - '/srv/gitlab/data:/var/opt/gitlab'
+    networks:
+      - gitlab-network
+      
+  web2:
+    image: 'gitlab/gitlab-ce:latest'
+    restart: always
+    hostname: 'web2'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://web2:8930'
+        gitlab_rails['gitlab_shell_ssh_port'] = 2225
+    ports:
+      - '8930:8930'
+      - '2225:22'
+    # volumes:
+    #   - '/srv/gitlab/config:/etc/gitlab'
+    #   - '/srv/gitlab/logs:/var/log/gitlab'
+    #   - '/srv/gitlab/data:/var/opt/gitlab'
+    networks:
+      - gitlab-network
+
   gitlab_ee:
     image: gitlab/gitlab-ce:latest
     container_name: gitlab_ee-1
@@ -25,7 +61,7 @@ services:
 
   gitlab_runner1:
     image: gitlab/gitlab-runner:latest
-    container_name: gitlab_runner1-1
+    container_name: gitlab_runner1
     hostname: gitlab_runner1
     volumes:
       # - './gitlab_runner1-config:/etc/gitlab-runner:Z'
@@ -36,3 +72,4 @@ services:
 networks:
   gitlab-network:
     name: gitlab-network
+

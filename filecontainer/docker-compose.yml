@@ -1,11 +1,14 @@
-version: '3.5'
+version: '3.7'
 
 services:
   learning_gitlab-filecontainer:
+    # image: ${DOCKER_REGISTRY:-registry.hub.docker.com}/geircode/learning_gitlab-filecontainer:latest
     image: geircode/learning_gitlab-filecontainer:latest
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        docker_latest_version_file_arg: ${DOCKER_LATEST_VERSION_FILE}      
     container_name: learning_gitlab-filecontainer-1
     networks:
       - learning_gitlab-filecontainer-network      

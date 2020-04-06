@@ -1,0 +1,1 @@
+docker exec -it gitlab_runner1 /bin/bash
