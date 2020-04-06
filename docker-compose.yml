@@ -5,7 +5,11 @@ services:
     image: geircode/learning_gitlab:latest
     build:
       context: .
-      dockerfile: Dockerfile    
+      dockerfile: Dockerfile
+      args:
+        # This will overwrite the default build arguments in the Dockerfile with the value of the enviroment variable value
+        # The value "DOCKER_LATEST_VERSION_FILE" comes from either .env or from the shell running the docker-compose command
+        docker_latest_version_file_arg: ${DOCKER_LATEST_VERSION_FILE}        
     container_name: learning_gitlab-1
     # volumes:
     #   - ".:/app"       
