@@ -1,6 +1,9 @@
 FROM geircode/learning_gitlab-filecontainer:latest as filecontainer
 
-FROM python:3.8-slim-buster
+# The image "python:3.8-slim-buster" does not have git installed:
+# FROM python:3.8-slim-buster
+
+FROM python:3.8
 
 ARG docker_latest_version_file_arg="docker-19.03.5.tgz"
 ENV DOCKER_LATEST_VERSION_FILE=${docker_latest_version_file_arg}
