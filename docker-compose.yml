@@ -11,9 +11,9 @@ services:
         # The value "DOCKER_LATEST_VERSION_FILE" comes from either .env or from the shell running the docker-compose command
         docker_latest_version_file_arg: ${DOCKER_LATEST_VERSION_FILE}        
     container_name: learning_gitlab-1
-    # volumes:
-    #   - ".:/app"       
-    #   - "/var/run/docker.sock:/var/run/docker.sock"
+    volumes:
+      # - ".:/app"       
+      - "/var/run/docker.sock:/var/run/docker.sock"
     networks:
       - learning_gitlab_network
 networks:
