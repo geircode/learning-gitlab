@@ -23,6 +23,7 @@ services:
     image: 'gitlab/gitlab-ce:latest'
     restart: always
     hostname: 'web2'
+    container_name: 'web2'
     environment:
       GITLAB_OMNIBUS_CONFIG: |
         external_url 'http://web2:8930'

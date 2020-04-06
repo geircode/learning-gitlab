@@ -11,7 +11,7 @@ ENV DOCKER_LATEST_VERSION_FILE=${docker_latest_version_file_arg}
 WORKDIR /app
 COPY . /app
 
-# RUN pip install -r requirements.txt 
+RUN pip install -r requirements.txt 
 
 # RUN apt-get update
 # RUN apt-get install -y jq
