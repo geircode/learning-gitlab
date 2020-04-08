@@ -9,18 +9,6 @@ container_name=gitlab-server
 
 docker inspect -f {{.State.Health.Status}} gitlab-server
 
-# until [ "`docker inspect -f {{.State.Health.Status}} gitlab-server`"=="healthy" ]; do
-# # until [ "`/usr/bin/docker inspect -f {{.State.Health.Status}} $container_name`"=="healthy" ]; do
-#     echo "sleeping 2 sec"
-#     sleep 2;
-# done;
-
-# until $(docker inspect -f {{.State.Health.Status}} gitlab-server) healthy
-# do
-#     echo "waiting for postgres container..."
-#     sleep 0.5
-# done
-
 sleep_seconds=5
 
 while true; do
@@ -39,3 +27,5 @@ while true; do
     echo "$container_name is warming up. Trying again in $sleep_seconds seconds..."
     sleep $sleep_seconds
 done
+
+python /app/python/gitlab/get_registration_key

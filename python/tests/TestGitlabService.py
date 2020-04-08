@@ -12,10 +12,16 @@ class TestGitlabService(unittest.TestCase):
     def setUp(self):
         print(datetime.datetime.now())   
 
-    def test_get_registration_key_from_gitlab(self):
-        registration_key = self.gitlab_service.get_registration_key()
-        self.assertTrue(registration_key != None)
-        self.assertEqual(len(registration_key), 20)
+    # def test_get_registration_key_from_gitlab(self):
+    #     registration_key = self.gitlab_service.get_registration_key()
+    #     self.assertTrue(registration_key != None)
+    #     self.assertEqual(len(registration_key), 20)
+    #     pass
+
+    def test_register_gitlab_runner(self):
+        registration_key = self.gitlab_service.register_gitlab_runner()
+        # self.assertTrue(registration_key != None)
+        # self.assertEqual(len(registration_key), 20)
         pass
 
     # def test_get_key_from_result(self):

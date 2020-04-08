@@ -22,6 +22,15 @@ class GitlabService:
         result = self._get_docker_get_runners_registration_token()
         key = self._get_key_from_result(result=str(result))
         return key
+
+    def _call_register_gitlab_runner(self, registration_key):
+        output = subprocess.check_output(["/app/shell-scripts/gitlab-runner-register.sh", registration_key])
+        print(output)
+        return output
+    
+    def register_gitlab_runner(self):
+        registration_key = self.get_registration_key()
+        result = self._call_register_gitlab_runner(registration_key=registration_key)
         
 if __name__ == '__main__':
     # registration_key = GitlabService().get_registration_key()
