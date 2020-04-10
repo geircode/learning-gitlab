@@ -24,18 +24,34 @@ class GitlabService:
         return key
 
     def _call_register_gitlab_runner(self, registration_key):
-        output = subprocess.check_output(["/app/shell-scripts/gitlab-runner-register.sh", registration_key])
-        print(output)
-        return output
+        try:
+            output = subprocess.check_output(["/app/shell-scripts/gitlab-runner-register.sh", registration_key])
+            print(output)
+            return output
+        except subprocess.CalledProcessError as e:
+            print(e.output)
+            return e.output
     
-    def register_gitlab_runner(self):
-        registration_key = self.get_registration_key()
+    def register_gitlab_runner(self, registration_key=None):
+        """
+        Example result:
+        'b"Runtime platform                                  
+        \\x1b[0;m  arch\\x1b[0;m=amd64 os\\x1b[0;m=linux pid\\x1b[0;m=120 revision\\x1b[0;m=4c96e5ad version\\x1b[0;m=12.9.0\\r\\nRunning in system-mode.                           
+        \\x1b[0;m \\r\\n                                                  \\x1b[0;m \\r\\nRegistering runner... succeeded                   
+        \\x1b[0;m  runner\\x1b[0;m=ZRLbrraa\\r\\nRunner registered successfully. Feel free to start it, but if it\'s running already the config should be automatically reloaded!\\x1b[0;m \\r\\n"'
+        """
+        if(registration_key is None):
+            registration_key = self.get_registration_key()
         result = self._call_register_gitlab_runner(registration_key=registration_key)
+        return result
+    
+    def create_project_awesome_sause(self):
+        pass
         
 if __name__ == '__main__':
     # registration_key = GitlabService().get_registration_key()
     # print(registration_key)
     # print(subprocess.check_output(["cat", "/app/shell-scripts/get_runners_registration_token.sh"]))
-    print(subprocess.check_output(["/app/shell-scripts/docker_get_runners_registration_token.sh"]))
+    # print(subprocess.check_output(["/app/shell-scripts/docker_get_runners_registration_token.sh"]))
     pass
 
