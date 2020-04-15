@@ -1,3 +1,3 @@
 cd %~dp0
-docker build -f Dockerfile -t geircode/learning_gitlab .
+docker build --no-cache -f Dockerfile -t geircode/learning_gitlab .
 pause
